@@ -27,7 +27,17 @@ The sample message that was posted in the discord.
 
 ## Example usage
 ```
-uses: actions/hello-world-docker-action@v2
-with:
-  discord-webhook-url: '***'
+jobs:
+  # The workflow job name
+  discord-notifier:
+    # Name of the enviroment
+    enviroment: secrets
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Sequence of tasks
+    steps:
+      - name: Discord Notification
+        uses: tenzin1308/discord-notification@v1.0.0
+        with:
+          discord-webhook-url: ${{ secrets.WEBHOOKS_URL }}
 ```
