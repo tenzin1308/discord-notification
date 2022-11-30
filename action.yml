@@ -1,0 +1,43 @@
+name: 'Discord Notification'
+description: 'GitHub Action to send notification on Discord'
+branding:
+  icon: git-pull-request
+  color: blue
+inputs:
+  discord-webhook-url:  # id of input
+    description: 'Bot user OAuth Access Token'
+    required: true
+  github-base-url:
+    description: 'Base URL of your github'
+    default: "https://api.github.com"
+    required: false
+  github-repo-owner:
+    description: 'Owner of the repo'
+    default: '${{ github.repository_name }}'
+    required: false
+  github-repo-name:
+    description: 'Name of the github repo'
+    default: '${{ github.event.repository.name }}'
+  github-token:
+    description: 'Github Access Token'
+    default: '${{ github.token }}'
+    required: false
+outputs:
+  discord-message:
+    description: 'Message send to the discord'
+runs:
+  using: "composite"
+  steps:
+    - name: Install Dependencies
+      run: pip3 install -r src/requirements.txt
+      shell: bash
+    - name: Send Discord Notification
+      id: notify
+      env:
+        webhook: ${{ inputs.discord-webhook-url }}
+        base_url: ${{ inputs.github-enterprise-base-url }}
+        repo_owner: ${{ inputs.github-repo-owner }}
+        repo: ${{ inputs.github-repo-name }}
+        token: ${{ inputs.github-token }}
+      run: python3 src/notification.py "$webhook" "$base_url" "$repo_owner" "$repo" "$token"
+      shell: bash
