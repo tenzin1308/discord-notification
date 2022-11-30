@@ -25,6 +25,7 @@ inputs:
 outputs:
   discord-message:
     description: 'Message send to the discord'
+    value: ${{ steps.notify.outputs.discord-message }}
 runs:
   using: "composite"
   steps:

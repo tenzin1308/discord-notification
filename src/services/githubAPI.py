@@ -22,7 +22,7 @@ class GithubAPI:
         except Exception as e:
             print(f"Exception during API: {e}")
 
-    def __get_latest_pr(self, path="pulls"):
+    def __get_latest_pr(self, path="pulls"): # TODO: add more methods for different calls
         page = 1
         res = self.__make_request(path=path, page=page)
         while res:

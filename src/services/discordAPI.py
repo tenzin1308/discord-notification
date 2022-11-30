@@ -13,7 +13,7 @@ class DiscordAPI:
               "name": message['author_name'],
               "icon_url": message['author_icon']
             },
-            "color": 15258703,
+            "color": 15258703, #TODO: Add as a input
             "fields": [
               {
                 "name": "Commit",
